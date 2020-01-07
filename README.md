@@ -9,7 +9,7 @@ ckb-wallet generates child key and address with path(m/44'/309'/0'/0 /0) whose c
 and address account number is 0, and change is 0 and address index is 0. You can get more information about 
 HD wallet path from [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
 
-## Doing
+## Done
 
 - Creating HD wallet
 - Importing HD wallet from mnemonic
