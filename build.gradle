@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'dev.dylan.ckb'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation files('libs/ckb-sdk-0.26.1-all.jar')
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+}
+
