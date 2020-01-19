@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
  * Copyright © 2019 Nervos Foundation. All rights reserved.
  */
 public class WalletClient {
+
+    private static final BigInteger UnitCKB = new BigInteger("100000000");
+
     private static Api api;
     private static Network network;
 
@@ -33,7 +36,7 @@ public class WalletClient {
         network = Network.TESTNET;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         String tipBlockNumber = api.getTipBlockNumber().toString();
         System.out.println("Tip block number: " + tipBlockNumber);
 
@@ -42,13 +45,17 @@ public class WalletClient {
         importWalletFromMnemonic();
 
         List<String> privateKeys = Collections.singletonList("e79f3207ea4980b7fed79956d5934249ceac4751a4fae01a0f7c4a96884bc4e3");
+        List<String> senderAddresses = privateKeys.stream().map(privateKey -> AddressUtils.fromPrivateKey(privateKey, network)).collect(Collectors.toList());
         List<Receiver> receivers =
                 Arrays.asList(
                         new Receiver("ckt1qyqxgp7za7dajm5wzjkye52asc8fxvvqy9eqlhp82g", Utils.ckbToShannon(800)),
                         new Receiver("ckt1qyqtnz38fht9nvmrfdeunrhdtp29n0gagkps4duhek", Utils.ckbToShannon(900)),
                         new Receiver("ckt1qyqxvnycu7tdtyuejn3mmcnl4y09muxz8c3s2ewjd4", Utils.ckbToShannon(1000)));
+        System.out.println("Balance: " + getBalance(senderAddresses.get(0)));
         String hash = sendCapacity(privateKeys, receivers);
         System.out.println("Tx hash: " + hash);
+        Thread.sleep(5000);
+        System.out.println("Balance: " + getBalance(senderAddresses.get(0)));
     }
 
     private static void createNewWallet() {
@@ -66,6 +73,10 @@ public class WalletClient {
                 walletElement.privateKey, Constant.SECP_BLAKE160_CODE_HASH);
         String address = AddressGenerator.generate(Network.MAINNET, lockScript);
         System.out.println("The address of the exist wallet imported from mnemonic is: " + address);
+    }
+
+    private static String getBalance(String address) {
+        return new CollectUtils(api).getCapacityWithAddress(address).divide(UnitCKB).toString(10);
     }
 
     private static String sendCapacity(

@@ -13,8 +13,7 @@ HD wallet path from [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044
 
 - Creating HD wallet
 - Importing HD wallet from mnemonic
-
-## Todo
-
 - Fetching balance with address
-- Sending capacity to other addresses
+- Sending capacity to mainnet or testnet addresses
+- Nervos DAO deposit and withdraw
+
