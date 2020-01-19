@@ -2,7 +2,6 @@ import org.nervos.ckb.address.Network;
 import org.nervos.ckb.service.Api;
 import org.nervos.ckb.transaction.LockUtils;
 import org.nervos.ckb.type.Script;
-import org.nervos.ckb.utils.Numeric;
 import org.nervos.ckb.utils.address.AddressGenerator;
 import utils.Constant;
 import wallet.Change;
@@ -22,8 +21,11 @@ public class WalletClient {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Tip block number: " + api.getTipBlockNumber().toString());
+        String tipBlockNumber = api.getTipBlockNumber().toString();
+        System.out.println("Tip block number: " + tipBlockNumber);
+
         createNewWallet();
+
         importWalletFromMnemonic();
     }
 
