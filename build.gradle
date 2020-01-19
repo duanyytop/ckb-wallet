@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation files('libs/ckb-sdk-0.26.1-all.jar')
+    implementation files('libs/ckb-sdk-0.27.0-all.jar')
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.2"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
 }
