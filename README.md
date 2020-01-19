@@ -11,6 +11,10 @@ HD wallet path from [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044
 
 ckb-wallet also support fetching balance of an address(mainnet/testnet), sending capacity to other addresses and Nervos Dao deposit and withdraw. 
 
+## Usage
+
+You can reference [WalletClient](https://github.com/duanyytop/ckb-wallet/tree/master/src/main/java/wallet/WalletClient.java) and [NervosDaoClient](https://github.com/duanyytop/ckb-wallet/tree/master/src/main/java/dao/NervosDaoClient.java)
+
 ## Done
 
 - Creating HD wallet
