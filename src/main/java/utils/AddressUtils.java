@@ -5,9 +5,6 @@ import org.nervos.ckb.transaction.LockUtils;
 import org.nervos.ckb.type.Script;
 import org.nervos.ckb.utils.address.AddressGenerator;
 
-/**
- * Copyright © 2020 Nervos Foundation. All rights reserved.
- */
 public class AddressUtils {
 
     public static String fromPrivateKey(String privateKey, Network network) {

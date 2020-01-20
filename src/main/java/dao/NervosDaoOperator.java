@@ -19,14 +19,12 @@ import org.nervos.ckb.type.transaction.Transaction;
 import org.nervos.ckb.type.transaction.TransactionWithStatus;
 import org.nervos.ckb.utils.EpochParser;
 import org.nervos.ckb.utils.Numeric;
-import org.nervos.ckb.utils.address.AddressGenerator;
 import transaction.CollectUtils;
 import transaction.NumberUtils;
 import transaction.Receiver;
 import transaction.ScriptGroupWithPrivateKeys;
-import utils.Constant;
+import utils.AddressUtils;
 
-import java.io.Console;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -34,12 +32,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/** Copyright © 2019 Nervos Foundation. All rights reserved. */
 public class NervosDaoOperator {
   private static final String NERVOS_DAO_DATA = "0x0000000000000000";
   private static final BigInteger UnitCKB = new BigInteger("100000000");
   private static final int DAO_LOCK_PERIOD_EPOCHS = 180;
-
 
   private Api api;
   private String daoPrivateKey;
@@ -48,7 +44,7 @@ public class NervosDaoOperator {
   NervosDaoOperator(Api api, String daoPrivateKey, Network network) {
     this.api = api;
     this.daoPrivateKey = daoPrivateKey;
-    this.daoAddress = AddressGenerator.generate(network, LockUtils.generateLockScriptWithPrivateKey(daoPrivateKey, Constant.SECP_BLAKE160_CODE_HASH));
+    this.daoAddress = AddressUtils.fromPrivateKey(daoPrivateKey, network);
   }
 
   public String getBalance() {

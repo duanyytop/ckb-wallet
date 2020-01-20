@@ -6,10 +6,8 @@ import org.nervos.ckb.type.OutPoint;
 import org.nervos.ckb.type.transaction.Transaction;
 import org.nervos.ckb.type.transaction.TransactionWithStatus;
 import org.nervos.ckb.utils.Utils;
+import utils.AddressUtils;
 
-/**
- * Copyright © 2020 Nervos Foundation. All rights reserved.
- */
 public class NervosDaoClient {
     private static final String NODE_URL = "http://localhost:8114";
 
@@ -22,15 +20,16 @@ public class NervosDaoClient {
 
         String depositTxHash = deposit();
 
-        String withdrawTxHash = startWithdraw(depositTxHash);
-
-        withdraw(withdrawTxHash);
+//        String withdrawTxHash = startWithdraw(depositTxHash);
+//
+//        withdraw(withdrawTxHash);
     }
 
     private static void init() {
         api = new Api(NODE_URL, false);
         String daoPrivateKey = "08730a367dfabcadb805d69e0e613558d5160eb8bab9d6e326980c2c46a05db2";
-        nervosDaoOperator = new NervosDaoOperator(api, daoPrivateKey, Network.MAINNET);
+        System.out.println(AddressUtils.fromPrivateKey(daoPrivateKey, Network.TESTNET));
+        nervosDaoOperator = new NervosDaoOperator(api, daoPrivateKey, Network.TESTNET);
     }
 
     private static String deposit() throws Exception {
@@ -38,6 +37,7 @@ public class NervosDaoClient {
         Transaction transaction = nervosDaoOperator.generateDepositingToDaoTx(Utils.ckbToShannon(1000));
         String txHash = api.sendTransaction(transaction);
         System.out.println("Nervos DAO deposit tx hash: " + txHash);
+        Thread.sleep(30000);
         // Waiting some time to make tx into blockchain
         System.out.println("After depositing, balance: " + nervosDaoOperator.getBalance() + " CKB");
         return txHash;

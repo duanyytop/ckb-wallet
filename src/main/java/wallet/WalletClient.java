@@ -21,9 +21,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Copyright © 2019 Nervos Foundation. All rights reserved.
- */
 public class WalletClient {
 
     private static final BigInteger UnitCKB = new BigInteger("100000000");
@@ -40,22 +37,24 @@ public class WalletClient {
         String tipBlockNumber = api.getTipBlockNumber().toString();
         System.out.println("Tip block number: " + tipBlockNumber);
 
-        createNewWallet();
-
-        importWalletFromMnemonic();
+//        createNewWallet();
+//
+//        importWalletFromMnemonic();
 
         List<String> privateKeys = Collections.singletonList("e79f3207ea4980b7fed79956d5934249ceac4751a4fae01a0f7c4a96884bc4e3");
         List<String> senderAddresses = privateKeys.stream().map(privateKey -> AddressUtils.fromPrivateKey(privateKey, network)).collect(Collectors.toList());
         List<Receiver> receivers =
                 Arrays.asList(
-                        new Receiver("ckt1qyqxgp7za7dajm5wzjkye52asc8fxvvqy9eqlhp82g", Utils.ckbToShannon(800)),
-                        new Receiver("ckt1qyqtnz38fht9nvmrfdeunrhdtp29n0gagkps4duhek", Utils.ckbToShannon(900)),
-                        new Receiver("ckt1qyqxvnycu7tdtyuejn3mmcnl4y09muxz8c3s2ewjd4", Utils.ckbToShannon(1000)));
-        System.out.println("Balance: " + getBalance(senderAddresses.get(0)));
+                        new Receiver("ckt1qyqxgp7za7dajm5wzjkye52asc8fxvvqy9eqlhp82g", Utils.ckbToShannon(8000)),
+                        new Receiver("ckt1qyqtnz38fht9nvmrfdeunrhdtp29n0gagkps4duhek", Utils.ckbToShannon(9000)),
+                        new Receiver("ckt1qyqxvnycu7tdtyuejn3mmcnl4y09muxz8c3s2ewjd4", Utils.ckbToShannon(6000)));
+        System.out.println("Sender Balance: " + getBalance(senderAddresses.get(0)));
+        Thread.sleep(2000);
+        System.out.println("Receiver Balance: " + getBalance(receivers.get(0).address));
         String hash = sendCapacity(privateKeys, receivers);
         System.out.println("Tx hash: " + hash);
-        Thread.sleep(5000);
-        System.out.println("Balance: " + getBalance(senderAddresses.get(0)));
+        Thread.sleep(30000);
+        System.out.println("Receiver Balance: " + getBalance(receivers.get(0).address));
     }
 
     private static void createNewWallet() {

@@ -79,7 +79,6 @@ public class Bip32ECKeyPair extends ECKeyPair {
                 curr = curr.deriveChildKey(childNumber);
             }
         }
-
         return curr;
     }
 
